@@ -1,0 +1,9 @@
+##################
+eg.
+mysql>Create table car_params (project_name VARCHAR(20), customer_name VARCHAR(20),car_style VARCHAR(10), car_width int(5), car_length INT(5),camera_lens VARCHAR(10),camera_sensor VARCHAR(10));
+
+msyql>insert into car_params values('Code_15','Qir','suv',1815,4435,'llc71','asx340');
+msyql>insert into car_params values('Code_17','Qir','suv',1860,4296,'llc71','asx340');
+msyql>insert into car_params values('Code_18','Qir','suv',1842,4663,'llc71','asx340');
+msyql>insert into car_params values('Code_M1D','Qir','suv',1815,4670,'llc71','asx340');
+
