@@ -1,0 +1,36 @@
+gcc example_sql_connect.c -o exe -I /usr/include/mysql -L /usr/include/mysql -lmysqlclient   
+:-I 可取 -L:link
+
+mysql> SHOW DATABASES;
+mysql> CREATE DATABASE abccs; 
+mysql> USE abccs 
+mysql> SHOW TABLES; 
+mysql> CREATE TABLE mytable (name VARCHAR(20), sex CHAR(1), birth DATE, birthaddr VARCHAR(20)); 
+mysql> DESCRIBE mytable; 
+
+用文本方式将数据装入一个数据库表
+如果一条一条地输入，很麻烦。我们可以用文本文件的方式将所有记录加入你的数据库表中。创建一个文本文件“mysql.txt”，每行包含一个记录，用定位符(tab)把值分开，并且以在CREATE TABLE语句中列出的列次序给出，例如：
+abccs f 1977-07-07 china 　 
+mary f 1978-12-12 usa 
+tom m 1970-09-02 usa
+ 
+使用下面命令将文本文件“mytable.txt”装载到mytable表中:mysql> LOAD DATA LOCAL INFILE "/data/mytable.txt"  INTO TABLE mytable;
+再使用如下命令看看是否已将数据输入到数据库表中：mysql> select * from mytable;
+
+mysqldump -u root -p spytest mytable > /work/SQLApp/example/mytable.sql
+mysql -hlocalhost -uroot -pAa colander select * from mytable into outfile  '/work/SQLApp/example/mytable.csv';
+mysql -hlocalhost -uroot -pAa spytest -e"select * from mytable;" > '/work/SQLApp/example/mytable.csv'
+
+#################################
+前提：　每个csv文件第一行为字段名
+      创建的数据库字段名同csv 文件的字段名
+
+1. 批量导入 多个 csv 文件
+
+for file in ./*.csv;do mv $file tablename.csv;mysqlimport --local --fields-terminated-by="," -uusename -ppassword databasename tablename.csv;rm tablename.csv;done
+（改脚本在导入数据的同时会删除文件 别忘记在导入数据库前备份文件啊）
+
+2. 导入一个 csv 文件
+mysql --local-infile -uusename -ppassword databasename -e "LOAD DATA LOCAL INFILE '1.csv' INTO TABLE tablename FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n'"
+(',' 和 '\r\n' 是根据你的csv 文件决定的 第一个是 字段分割的标志，第二个是行分割的标志)（--local-infile: 没有这个会报错【ERROR 1148 (42000) at line 1: The used command is not allowed with this MySQL version】）
+
