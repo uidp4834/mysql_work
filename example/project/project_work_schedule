@@ -18,5 +18,11 @@ CURTIME()以’HH:MM:SS’的格式返回当前的时间，可以直接存到TIM
 例：insert into tablename (fieldname) values (now())
 ||
 mysql>update project_status SET status='FAIL' where id=1;
+||
+mysql>update project_status set status= 'OK' where id=5;
+||
+mysql>insert into  project_status values('Code_T15FL',CURDATE(),'car model position is not center in topview','FAIL',11);
+||
+mysql>select * from project_status where project_name='Code_M1D';
 
 

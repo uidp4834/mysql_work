@@ -11,11 +11,16 @@ mysql>alter table project_status change id id int not null auto_increment primar
 mysql>insert into  project_status values('Code_T1C',CURDATE(),'HMI style is not sure','FAIL');
 mysql>insert into  project_status values('Code_T19',CURDATE(),'customer give T19 the image of cameras','OK');
 mysql>insert into  project_status values('Code_M1D',CURDATE(),'LDW left and right Warning distance is not same','FAIL');
+mysql>insert into  project_status values('Code_T1C',CURDATE(),'Can update problem is not reflect','FAIL',9);
 NOW()函数以`'YYYY-MM-DD HH:MM:SS'返回当前的日期时间，可以直接存到DATETIME字段中。 
 CURDATE()以’YYYY-MM-DD’的格式返回今天的日期，可以直接存到DATE字段中。
 CURTIME()以’HH:MM:SS’的格式返回当前的时间，可以直接存到TIME字段中。
 例：insert into tablename (fieldname) values (now())
 ||
 mysql>update project_status SET status='FAIL' where id=1;
+||
+mysql>update project_status set status= 'OK' where id=5;
+||
+mysql>insert into  project_status values('Code_T15FL',CURDATE(),'car model position is not center in topview','FAIL',11);
 
 
